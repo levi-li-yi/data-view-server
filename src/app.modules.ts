@@ -6,6 +6,8 @@
 import { ExistingProvider, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
+import configuration from './config/configuration';
+
 /* 将 provider的类名作为别名，方便定时器调用 */
 const providers = [];
 
@@ -25,6 +27,10 @@ const aliasProviders = createAliasProviders();
 @Module({
   imports: [
     // 配置文件模块
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration],
+    }),
     // 公共模块
     // 业务模块
   ],
