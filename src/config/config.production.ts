@@ -11,7 +11,7 @@ export default defineConfig({
     port: process.env.MYSQL_PORT || 3306,
     username: process.env.MYSQL_USERNAME || 'root',
     password: process.env.MYSQL_PASSWORD || '123456',
-    database: process.env.MYSQL_DATABASE || 'ytc-cms',
+    database: process.env.MYSQL_DATABASE || 'smt',
     autoLoadModels: true,
     synchronize: true,
     logging: false,
