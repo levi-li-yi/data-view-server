@@ -28,6 +28,8 @@ import { RoleModule } from './modules/system/role/role.module';
 import { SysConfigModule } from './modules/system/sys-config/sys-config.module';
 import { UserModule } from './modules/system/user/user.module';
 
+import { ProjectModule } from './modules/project/project.module';
+
 /* 将 provider的类名作为别名，方便定时器调用 */
 const providers = [JobService];
 
@@ -72,6 +74,9 @@ const aliasProviders = createAliasProviders();
     JobModule,
     ServerModule,
     CacheModule,
+
+    // 核心业务模块
+    ProjectModule,
   ],
   providers: [...aliasProviders],
 })

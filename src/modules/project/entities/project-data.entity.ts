@@ -20,10 +20,10 @@ export class ProjectData extends BaseEntity {
   projectId: number;
 
   /* 项目参数内容 */
-  @Column('varchar', {
+  @Column('longtext', {
     name: 'content_data',
     nullable: true,
-    length: 20000,
+    // length: '',
   })
   @IsOptional()
   contentData: string | null;

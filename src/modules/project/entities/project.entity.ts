@@ -9,6 +9,7 @@ export class Project extends BaseEntity {
   /* 项目ID */
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   @Type()
+  @IsOptional()
   @IsNumber()
   id: number;
 
@@ -25,20 +26,20 @@ export class Project extends BaseEntity {
   /* 状态 */
   @Column('int', {
     name: 'state',
-    nullable: false,
+    nullable: true,
   })
   @IsOptional()
   @IsNumber()
-  state: number;
+  state: number | null;
 
   /* 是否已删除 */
   @Column('int', {
     name: 'is_delete',
-    nullable: false,
+    nullable: true,
   })
   @IsOptional()
   @IsNumber()
-  isDelete: number;
+  isDelete: number | null;
 
   /* 图示 */
   @Column('varchar', {
