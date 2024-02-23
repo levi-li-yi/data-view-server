@@ -65,6 +65,7 @@
     "image-size": "^1.0.2",
     "ioredis": "^5.2.3",
     "memorystream": "^0.3.1",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^2.3.3",
     "nanoid": "3.3.4",
     "node-xlsx": "^0.21.0",

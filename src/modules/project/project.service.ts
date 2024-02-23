@@ -87,24 +87,36 @@ export class ProjectService {
   }
 
   // 新增或者编辑项目数据
-  async addOrUpdateProjectData(
-    reqUpdateProjectDataDto: ReqUpdateProjectDataDto,
-  ) {
-    const oneProjectData = await this.findProjectDataById(
-      reqUpdateProjectDataDto.projectId,
-    );
+  // async addOrUpdateProjectData(
+  //   reqUpdateProjectDataDto: ReqUpdateProjectDataDto,
+  // ) {
+  //   const oneProjectData = await this.findProjectDataByProjectId(
+  //     reqUpdateProjectDataDto.projectId,
+  //   );
+  //   if (oneProjectData) {
+  //     return this.projectDataRepository.update(
+  //       reqUpdateProjectDataDto.projectId,
+  //       reqUpdateProjectDataDto,
+  //     );
+  //   } else {
+  //     return this.projectDataRepository.save(reqUpdateProjectDataDto);
+  //   }
+  // }
+
+  async addOrUpdateProjectData(projectId: number, content: string) {
+    const oneProjectData = await this.findProjectDataByProjectId(projectId);
     if (oneProjectData) {
-      return this.projectDataRepository.update(
-        reqUpdateProjectDataDto.projectId,
-        reqUpdateProjectDataDto,
-      );
+      return this.projectDataRepository.update(projectId, {
+        projectId,
+        content,
+      });
     } else {
-      return this.projectDataRepository.save(reqUpdateProjectDataDto);
+      return this.projectDataRepository.save({ projectId, content });
     }
   }
 
   // 通过项目ID查找是否有项目数据
-  async findProjectDataById(projectId: number) {
+  async findProjectDataByProjectId(projectId: number) {
     const where: FindOptionsWhere<ProjectData> = { projectId };
     return this.projectDataRepository.findOne({ where });
   }
@@ -112,6 +124,7 @@ export class ProjectService {
   // 获取项目数据
   async getProjectData(projectId: number) {
     const where: FindOptionsWhere<ProjectData> = { projectId };
-    return this.projectDataRepository.findOne({ where });
+    const projectData = await this.projectDataRepository.findOne({ where });
+    return projectData || { content: '{}' };
   }
 }

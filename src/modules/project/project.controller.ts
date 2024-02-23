@@ -12,8 +12,10 @@ import {
   Post,
   Put,
   Query,
-  StreamableFile,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { DataObj } from 'src/common/class/data-obj.class';
@@ -104,13 +106,16 @@ export class ProjectController {
   /* 保存项目数据 */
   @RepeatSubmit()
   @Post('project/save/data')
-  async saveProjectData(
-    @Body() reqUpdateProjectDataDto: ReqUpdateProjectDataDto,
-    @User(UserEnum.userName, UserInfoPipe) userName: string,
-  ) {
-    reqUpdateProjectDataDto.createBy = reqUpdateProjectDataDto.updateBy =
-      userName;
-    await this.projectService.addOrUpdateProjectData(reqUpdateProjectDataDto);
+  @UseInterceptors(FileInterceptor('file'))
+  async saveProjectData(@Body() body) {
+    // reqUpdateProjectDataDto.createBy = reqUpdateProjectDataDto.updateBy =
+    //   userName;
+    // await this.projectService.addOrUpdateProjectData(reqUpdateProjectDataDto);
+    console.log('projectId', body.projectId);
+    await this.projectService.addOrUpdateProjectData(
+      body.projectId,
+      body.content,
+    );
   }
 
   /* 获取项目数据 */

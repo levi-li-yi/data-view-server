@@ -8,23 +8,25 @@ export class ProjectData extends BaseEntity {
   /* 项目参数ID */
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   @Type()
+  @IsOptional()
   @IsNumber()
   id: number;
 
   /* 项目ID */
-  @Column('varchar', {
+  @Column('int', {
     name: 'project_id',
-    nullable: false,
+    nullable: true,
   })
+  @IsOptional()
   @IsNumber()
-  projectId: number;
+  projectId: number | null;
 
   /* 项目参数内容 */
   @Column('longtext', {
-    name: 'content_data',
+    name: 'content',
     nullable: true,
     // length: '',
   })
   @IsOptional()
-  contentData: string | null;
+  content: string | null;
 }
