@@ -16,7 +16,7 @@ export class AjaxResult {
   }
 
   static success(data?: any, msg = '操作成功') {
-    return new AjaxResult(200, msg, data);
+    return new AjaxResult(200, msg, data ? { data: { ...data } } : null);
   }
 
   static error(msg = '操作失败', code = 500) {

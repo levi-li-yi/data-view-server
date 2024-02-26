@@ -111,7 +111,6 @@ export class ProjectController {
     // reqUpdateProjectDataDto.createBy = reqUpdateProjectDataDto.updateBy =
     //   userName;
     // await this.projectService.addOrUpdateProjectData(reqUpdateProjectDataDto);
-    console.log('projectId', body.projectId);
     await this.projectService.addOrUpdateProjectData(
       body.projectId,
       body.content,
@@ -123,6 +122,8 @@ export class ProjectController {
   @Public()
   @ApiDataResponse(typeEnum.object, ProjectData)
   async getProjectData(@Query('projectId') id: number) {
-    return this.projectService.getProjectData(id);
+    const project = await this.projectService.oneProject(id);
+    const data = await this.projectService.getProjectData(id);
+    return data ? { ...project, ...data } : null;
   }
 }

@@ -69,6 +69,11 @@ export class ProjectService {
     };
   }
 
+  // 通过id查询项目
+  async oneProject(id: number): Promise<Project> {
+    return this.projectRepository.findOneBy({ id });
+  }
+
   // 通过name、id查询项目
   async findByProject(projectName: string, id?: number): Promise<Project> {
     const where: FindOptionsWhere<Project> = { projectName };
@@ -125,6 +130,6 @@ export class ProjectService {
   async getProjectData(projectId: number) {
     const where: FindOptionsWhere<ProjectData> = { projectId };
     const projectData = await this.projectDataRepository.findOne({ where });
-    return projectData || { content: '{}' };
+    return projectData || null;
   }
 }
